@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=AI Orchestrator
+Comment=Multi-AI Coordination Platform & Autonomous Coding Suite
+Exec=ai-orchestrator
+Icon=ai-orchestrator
+Terminal=true
+Type=Application
+Categories=Development;Utility;ArtificialIntelligence;
+Keywords=AI;Claude;NVIDIA;Orchestrator;LLM;

@@ -1,0 +1,48 @@
+{
+  "language": "en",
+  "theme": "dark",
+  "memory_path": "./memory/memory.json",
+  "security": {
+    "sudo_enabled": false,
+    "fs_read": false,
+    "fs_write": false,
+    "fs_delete": false,
+    "screen_capture": false,
+    "mouse_control": false,
+    "keyboard_control": false,
+    "terminal_enabled": false,
+    "allowed_paths": [
+      "./workspace/"
+    ],
+    "gui_automation": false
+  },
+  "deliberation": {
+    "enabled": true,
+    "show_raw_debate": false,
+    "judge_model": null,
+    "parallel_timeout": 120.0,
+    "deliberation_max_tokens": 1000,
+    "synthesis_max_tokens": 2000
+  },
+  "ui": {
+    "show_status_bar": true,
+    "show_deliberation_panel": false,
+    "chat_font_size": "medium"
+  },
+  "providers": [
+    {
+      "id": "google_gemini",
+      "name": "Google Gemini",
+      "base_url": "https://generativelanguage.googleapis.com/v1beta",
+      "api_key": "",
+      "model_id": "gemini-2.5-flash",
+      "schema_type": "google",
+      "enabled": true,
+      "effort_level": "medium",
+      "max_tokens": 4096,
+      "temperature": 0.7,
+      "custom_headers": {},
+      "custom_payload_template": null
+    }
+  ]
+}

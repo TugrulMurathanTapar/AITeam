@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Cross-Platform Multi-AI Orchestrator Web Client with client-side AES-256-GCM encrypted persistent memory and direct provider streaming.">
+  <meta name="keywords" content="AI Orchestrator, Multi-Agent, Web Crypto, AES-GCM, LLM, OpenAI, Anthropic, Claude, Gemini, Persistent Memory">
+  <meta name="author" content="Multi-AI Orchestrator Team">
+  <meta name="theme-color" content="#0a0e27">
+
+  <!-- Open Graph / Social Meta Tags -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Multi-AI Orchestrator">
+  <meta property="og:description" content="Secure, in-browser Multi-AI Orchestration with persistent encrypted memory and real-time streaming.">
+  <meta property="og:image" content="icons/icon-512.png">
+
+  <title data-i18n="app_title">AI Orchestrator</title>
+
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%230a0e27'/><path d='M30 65 L50 25 L70 65 Z' fill='none' stroke='%2306b6d4' stroke-width='8'/><circle cx='50' cy='50' r='10' fill='%237c3aed'/></svg>">
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Ambient Glowing Background Blobs -->
+  <div class="ambient-bg" aria-hidden="true">
+    <div class="ambient-orb orb-purple"></div>
+    <div class="ambient-orb orb-cyan"></div>
+    <div class="ambient-orb orb-pink"></div>
+  </div>
+
+  <!-- Notification Toast Portal -->
+  <div id="notification-portal" class="notification-portal" aria-live="polite"></div>
+
+  <!-- ========================================================================
+       VIEW 1: TOKEN ENTRY (LANDING)
+       ======================================================================== -->
+  <main id="view-token" class="view-container active">
+    <!-- Top right Language Switcher -->
+    <header class="landing-topbar">
+      <button id="btn-lang-toggle" class="btn-lang" type="button" aria-label="Toggle Language">
+        <span>🌐</span>
+        <span data-i18n="language_toggle">TR</span>
+      </button>
+    </header>
+
+    <!-- Glassmorphic Decryption Card -->
+    <section class="token-card" id="token-card">
+      <div class="token-card-header">
+        <div class="brand-badge">
+          <span class="brand-badge-dot"></span>
+          <span data-i18n="app_tagline">Cross-Platform Multi-AI Orchestrator</span>
+        </div>
+        <h1 class="token-title gradient-text" data-i18n="token_title">AI Orchestrator</h1>
+        <p class="token-subtitle" data-i18n="token_subtitle">
+          Decrypt your secure multi-agent configuration and persistent memory token.
+        </p>
+      </div>
+
+      <form id="token-decrypt-form" onsubmit="return false;">
+        <!-- Token Textarea -->
+        <div class="token-form-group">
+          <label for="input-sync-token" data-i18n="token_label">Encrypted Sync Token</label>
+          <textarea 
+            id="input-sync-token" 
+            class="input-glass token-textarea" 
+            data-i18n="token_placeholder" 
+            placeholder="Paste your encrypted sync token here..." 
+            spellcheck="false" 
+            required
+          ></textarea>
+        </div>
+
+        <!-- Passphrase Input -->
+        <div class="token-form-group">
+          <label for="input-passphrase" data-i18n="password_label">Decryption Passphrase</label>
+          <input 
+            type="password" 
+            id="input-passphrase" 
+            class="input-glass token-input-password" 
+            data-i18n="password_placeholder" 
+            placeholder="Enter decryption passphrase..." 
+            required
+          >
+        </div>
+
+        <!-- Animated Gradient Border Button -->
+        <button type="button" id="btn-decrypt" class="btn-gradient-border">
+          <span class="btn-icon">⚡</span>
+          <span data-i18n="decrypt_button">Decrypt & Connect</span>
+        </button>
+
+        <!-- Demo Divider & Quick Test Button -->
+        <div class="demo-divider">
+          <span data-i18n="demo_badge">Instant Preview</span>
+        </div>
+
+        <button type="button" id="btn-load-demo" class="btn-load-demo">
+          <span>🚀</span>
+          <span data-i18n="load_demo_button">Launch Demo Workspace</span>
+        </button>
+
+        <!-- Shake Animation Error Display -->
+        <div id="token-error-message" class="error-container" role="alert"></div>
+
+        <!-- Client-Side Security Assurance -->
+        <p class="token-security-note" data-i18n="token_helper">
+          All cryptography runs locally in your browser via Web Crypto API (AES-256-GCM). No private keys or tokens leave your device.
+        </p>
+      </form>
+    </section>
+  </main>
+
+
+  <!-- ========================================================================
+       VIEW 2: CHAT WORKSPACE
+       ======================================================================== -->
+  <div id="view-chat" class="view-container">
+    <!-- Backdrop for mobile sidebar -->
+    <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
+
+    <!-- Left Sidebar -->
+    <aside id="sidebar-panel" class="chat-sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-brand">
+          <div class="sidebar-logo-icon">✦</div>
+          <span class="sidebar-title gradient-text" data-i18n="app_title">AI Orchestrator</span>
+        </div>
+        <button id="btn-sidebar-close" class="sidebar-close-btn" aria-label="Close sidebar">✕</button>
+      </div>
+
+      <div class="sidebar-body">
+        <!-- Sub-Memory Context Selector -->
+        <div class="sidebar-section">
+          <h3 class="sidebar-section-title" data-i18n="sub_memory_label">Active Sub-Memory</h3>
+          <div class="submemory-selector-group">
+            <select id="select-sub-memory" class="custom-select-glass" aria-label="Select Sub-Memory">
+              <option value="" data-i18n="no_sub_memory">None (Core Memory Only)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Active Models List -->
+        <div class="sidebar-section">
+          <h3 class="sidebar-section-title" data-i18n="active_models">Active AI Models</h3>
+          <ul id="sidebar-models-list" class="models-list">
+            <!-- Dynamically populated -->
+          </ul>
+        </div>
+      </div>
+
+      <!-- Sidebar Footer Tools -->
+      <div class="sidebar-footer">
+        <button type="button" id="btn-open-memory" class="btn-sidebar-tool">
+          <span class="sidebar-tool-icon">🧠</span>
+          <span data-i18n="memory_browser">Memory Browser</span>
+        </button>
+
+        <button type="button" id="btn-open-settings" class="btn-sidebar-tool">
+          <span class="sidebar-tool-icon">⚙️</span>
+          <span data-i18n="settings">Settings</span>
+        </button>
+
+        <button type="button" id="btn-logout" class="btn-sidebar-tool tool-danger">
+          <span class="sidebar-tool-icon">⏻</span>
+          <span data-i18n="logout">Disconnect</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Chat Workspace -->
+    <section class="chat-main-area">
+      <!-- Chat Topbar -->
+      <header class="chat-topbar">
+        <div class="chat-topbar-left">
+          <button id="btn-sidebar-toggle" class="btn-hamburger" aria-label="Toggle navigation">☰</button>
+          <div class="active-model-indicator-badge">
+            <span class="pulsing-dot"></span>
+            <span id="header-active-model-name">Loading...</span>
+          </div>
+          <div id="header-submemory-pill" class="active-submemory-pill hidden"></div>
+        </div>
+
+        <div class="chat-topbar-actions">
+          <button type="button" id="btn-clear-chat" class="btn-icon-action" data-i18n-title="clear_chat" title="Clear chat history">
+            <span>🗑️</span>
+            <span data-i18n="clear_chat">Clear Chat</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Scrollable Message Stream -->
+      <div id="chat-messages-container" class="chat-messages-container">
+        <!-- Default Welcome Hero Card -->
+        <div class="chat-welcome-card" id="chat-welcome">
+          <div class="welcome-icon">✦</div>
+          <h2 class="welcome-title gradient-text" data-i18n="chat_welcome_title">Multi-AI Orchestrator Ready</h2>
+          <p class="welcome-desc" data-i18n="chat_welcome_desc">
+            Your persistent memory and AI provider configurations are loaded and active. Choose a model below or begin sending queries.
+          </p>
+        </div>
+      </div>
+
+      <!-- Bottom Chat Input Bar -->
+      <footer class="chat-bottom-bar">
+        <!-- Model Selector Chips Row -->
+        <div class="model-chips-row">
+          <span class="model-chips-label" data-i18n="model_chips_label">Quick Switch:</span>
+          <div id="chat-model-chips" class="model-chips-scroll">
+            <!-- Dynamically populated model tags -->
+          </div>
+        </div>
+
+        <!-- Input Form -->
+        <form id="chat-input-form" class="chat-input-wrapper">
+          <textarea 
+            id="chat-input" 
+            class="chat-textarea" 
+            data-i18n="chat_placeholder" 
+            placeholder="Type your message... (Press Enter to send, Shift+Enter for newline)" 
+            rows="1"
+          ></textarea>
+          <button type="submit" id="btn-send-message" class="btn-send">
+            <span class="btn-send-icon">▲</span>
+            <span class="btn-text" data-i18n="send_button">Send</span>
+          </button>
+        </form>
+      </footer>
+    </section>
+  </div>
+
+
+  <!-- ========================================================================
+       VIEW 3: MEMORY BROWSER MODAL
+       ======================================================================== -->
+  <div id="modal-memory" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="memory-modal-title">
+    <div class="modal-window">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="modal-icon">🧠</span>
+          <div>
+            <h2 id="memory-modal-title" class="modal-title gradient-text" data-i18n="memory_title">Persistent Memory Graph</h2>
+            <p class="modal-subtitle" data-i18n="memory_subtitle">Inspect your decrypted Core Memory and contextual Sub-Memories.</p>
+          </div>
+        </div>
+        <button type="button" id="modal-memory-close-x" class="modal-close-x" aria-label="Close modal">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div id="memory-tree-container">
+          <!-- Dynamically populated tree -->
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" id="btn-export-memory-json" class="btn-secondary" data-i18n="export_memory">
+          Copy JSON
+        </button>
+        <button type="button" id="btn-close-memory" class="btn-secondary" data-i18n="close">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ========================================================================
+       MODAL: SETTINGS & TOKEN GENERATOR
+       ======================================================================== -->
+  <div id="modal-settings" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="settings-modal-title">
+    <div class="modal-window">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="modal-icon">⚙️</span>
+          <div>
+            <h2 id="settings-modal-title" class="modal-title gradient-text" data-i18n="settings_title">Settings & Tools</h2>
+            <p class="modal-subtitle" data-i18n="token_generator_desc">Create a new encrypted token from your own memory and API keys.</p>
+          </div>
+        </div>
+        <button type="button" id="modal-settings-close-x" class="modal-close-x" aria-label="Close settings modal">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="settings-form-group">
+          <label for="gen-input-memory" data-i18n="gen_memory_label">Memory JSON</label>
+          <textarea id="gen-input-memory" class="input-glass settings-textarea" placeholder='{"core": {"identity": "Custom persona..."}}'></textarea>
+        </div>
+
+        <div class="settings-form-group">
+          <label for="gen-input-configs" data-i18n="gen_configs_label">API Configs JSON</label>
+          <textarea id="gen-input-configs" class="input-glass settings-textarea" placeholder='[{"name": "My Model", "provider": "openai", "model": "gpt-4o", "apiKey": "sk-..."}]'></textarea>
+        </div>
+
+        <div class="settings-form-group">
+          <label for="gen-input-passphrase" data-i18n="gen_pass_label">New Token Passphrase</label>
+          <input type="password" id="gen-input-passphrase" class="input-glass" placeholder="Passphrase for encryption...">
+        </div>
+
+        <button type="button" id="btn-generate-token" class="btn-gradient-border">
+          <span data-i18n="generate_token">Encrypt & Generate Token</span>
+        </button>
+
+        <div class="settings-form-group" style="margin-top: 16px;">
+          <textarea id="gen-output-token" class="input-glass settings-textarea hidden" readonly placeholder="Generated token appears here..."></textarea>
+        </div>
+
+        <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border-glass-subtle);">
+          <button type="button" id="btn-clear-session" class="btn-secondary" style="color: #fca5a5; border-color: rgba(239, 68, 68, 0.4);" data-i18n="clear_session">
+            Clear Session Data
+          </button>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" id="btn-close-settings" class="btn-secondary" data-i18n="close">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Modules in Dependency Order -->
+  <script src="js/i18n.js"></script>
+  <script src="js/crypto.js"></script>
+  <script src="js/memory.js"></script>
+  <script src="js/chat.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

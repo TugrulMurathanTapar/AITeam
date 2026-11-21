@@ -1,0 +1,269 @@
+/* Dark theme with purple/cyan accents */
+Screen {
+    background: #0a0e27;
+    color: #f1f5f9;
+}
+
+#main-layout {
+    height: 1fr;
+    padding: 0 1;
+}
+
+#chat-area {
+    width: 1fr;
+    min-width: 32;
+    height: 100%;
+    padding-bottom: 1;
+}
+
+#chat-scroll {
+    height: 1fr;
+    border: round #334155;
+    background: #111827;
+    padding: 1;
+    scrollbar-color: #64748b;
+    scrollbar-color-hover: #22d3ee;
+}
+
+#input-bar {
+    height: 3;
+    margin-top: 1;
+    align-vertical: middle;
+}
+
+#chat-request-status {
+    height: 1;
+    color: #67e8f9;
+    padding-left: 1;
+}
+
+#chat-input {
+    width: 1fr;
+    height: 3;
+    margin: 0;
+    border: tall #475569;
+    background: #111827;
+    color: #f1f5f9;
+}
+
+#chat-input:focus {
+    border: tall #22d3ee;
+}
+
+#send-btn {
+    width: 14;
+    height: 3;
+    margin: 0 0 0 1;
+    background: #0891b2;
+    color: #f1f5f9;
+}
+
+#send-btn:hover {
+    background: #0e7490;
+}
+
+#chat-sidebar {
+    width: 36;
+    min-width: 28;
+    height: 100%;
+    margin-left: 1;
+    padding: 1;
+    border: round #334155;
+    background: #0f172a;
+}
+
+.sidebar-title {
+    height: 2;
+    color: #67e8f9;
+    text-style: bold;
+}
+
+.sidebar-hint {
+    height: auto;
+    min-height: 2;
+    margin: 0 0 1 0;
+    color: #94a3b8;
+}
+
+#deliberation-control {
+    height: 3;
+    align-vertical: middle;
+}
+
+#deliberation-control Label {
+    width: 1fr;
+    margin: 0;
+    color: #e2e8f0;
+}
+
+#deliberation-toggle {
+    width: 8;
+    margin: 0;
+}
+
+#chat-model-label {
+    height: 1;
+    margin: 0 0 1 0;
+    color: #cbd5e1;
+}
+
+#chat-model-select {
+    width: 100%;
+    height: auto;
+    margin: 0 0 1 0;
+    border: tall #475569;
+    background: #111827;
+}
+
+#deliberation-panel {
+    width: 100%;
+    height: 1fr;
+    border: round #06b6d4;
+    background: #111827;
+    padding: 0 1;
+    display: none;
+}
+
+#delib-title {
+    text-style: bold;
+    color: #06b6d4;
+}
+
+#status-bar {
+    dock: bottom;
+    height: 1;
+    background: #111638;
+    color: #94a3b8;
+    padding: 0 2;
+}
+
+/* Settings screen */
+TabbedContent {
+    height: 1fr;
+    background: #0a0e27;
+}
+
+TabPane {
+    padding: 1 2;
+    background: #111638;
+    overflow-y: auto;
+}
+
+Input {
+    margin: 1 0;
+    border: tall #7c3aed;
+    background: #0a0e27;
+    color: #f1f5f9;
+}
+
+Input:focus {
+    border: tall #06b6d4;
+}
+
+Switch {
+    margin: 0 2;
+}
+
+Button {
+    margin: 1 1;
+}
+
+Button.-primary {
+    background: #7c3aed;
+    color: #ffffff;
+}
+
+Button.-success {
+    background: #10b981;
+    color: #ffffff;
+}
+
+Button.-error {
+    background: #ef4444;
+    color: #ffffff;
+}
+
+Button.-warning {
+    background: #f59e0b;
+    color: #111638;
+}
+
+DataTable {
+    height: auto;
+    max-height: 12;
+    background: #0a0e27;
+    border: tall #7c3aed;
+    margin-bottom: 1;
+}
+
+/* Memory screen */
+#memory-layout {
+    height: 1fr;
+}
+
+Tree {
+    width: 2fr;
+    background: #111638;
+    border: round #7c3aed;
+    padding: 1;
+    scrollbar-color: #7c3aed;
+}
+
+Tree > .tree--cursor {
+    background: #7c3aed 30%;
+}
+
+#memory-actions {
+    width: 1fr;
+    padding: 1 2;
+    background: #0f1235;
+    border: round #06b6d4;
+    overflow-y: auto;
+}
+
+.hidden {
+    display: none;
+}
+
+Header {
+    background: #111638;
+    color: #f1f5f9;
+}
+
+Footer {
+    background: #111638;
+}
+
+Label {
+    margin: 1 0;
+    color: #f1f5f9;
+}
+
+Static {
+    color: #f1f5f9;
+}
+
+Select {
+    margin: 1 0;
+    border: tall #7c3aed;
+    background: #0a0e27;
+}
+
+TextArea {
+    height: 8;
+    border: tall #7c3aed;
+    background: #0a0e27;
+    color: #f1f5f9;
+}
+
+.setting-row {
+    height: 3;
+    align-vertical: middle;
+    margin: 1 0;
+}
+
+.section-title {
+    text-style: bold;
+    color: #06b6d4;
+    margin: 1 0;
+}
